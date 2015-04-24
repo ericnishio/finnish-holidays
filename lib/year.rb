@@ -66,7 +66,7 @@ class Year
   end
 
   def get_file_path
-    return "../data/#{@year}.json"
+    return File.dirname(__FILE__) + "/../data/#{@year}.json"
   end
 
   def get_holidays
