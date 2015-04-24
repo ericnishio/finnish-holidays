@@ -98,6 +98,10 @@ class Holidays
     holidays
   end
 
+  def next_json count = 3
+    self.next(count).to_json
+  end
+
   def goto_next_month
     if @m == 12
       @m = 1
