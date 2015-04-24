@@ -3,6 +3,8 @@ require 'time'
 require_relative 'year'
 
 class Holidays
+  MAX_HOLIDAYS = 100
+
   @y = nil
   @m = nil
   @d = nil
@@ -16,6 +18,10 @@ class Holidays
   end
 
   def next count = 3
+    if count > MAX_HOLIDAYS
+      raise "Cannot request more than #{MAX_HOLIDAYS} holidays at once."
+    end
+
     holidays = Array.new
 
     while holidays.length < count
