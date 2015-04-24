@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'json'
+require 'time'
 
 class Holidays
   @y = nil
@@ -43,8 +44,12 @@ class Holidays
 
   def next_print count = 3
     holidays = self.next(count)
+
     holidays.each do |holiday|
-      puts "#{holiday['day']}.#{holiday['month']}.#{holiday['year']} #{holiday['description']}"
+      t = @year.create_date(holiday['year'], holiday['month'], holiday['day'])
+      date = t.strftime('%a, %b %e, %Y')
+
+      puts "#{date} #{holiday['description']}"
     end
   end
 
@@ -94,6 +99,7 @@ class Year
 
   def parse_holidays
     page = Nokogiri::HTML(open('http://www.webcal.fi/fi-FI/pyhat.php?y=' + @year.to_s))
+
     page.css('table.basic tr').each do |el|
       if el.css('th:last-child').text != 'Päivämäärä' # TODO: Improve check.
         date_el = el.css('td:nth-child(4)')
@@ -133,6 +139,26 @@ class Year
 
   def get_json
     self.get_holidays.to_json
+  end
+
+  def create_date year, month, day
+    day = self.zerofy(day)
+    month = self.zerofy(month)
+    year = year.to_s
+
+    Time.parse("#{year}-#{month}-#{day}")
+  end
+
+  def zerofy num
+    num = num.to_i
+
+    if num < 10
+      num = '0' + num.to_s
+    else
+      num = num.to_s
+    end
+
+    num
   end
 
   def get_day date_string
