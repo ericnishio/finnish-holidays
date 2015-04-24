@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require 'nokogiri'
 require 'open-uri'
 require 'json'
@@ -122,5 +120,3 @@ class Year
      parts[1].to_i
   end
 end
-
-Holidays.new.next_print
