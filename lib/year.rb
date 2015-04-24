@@ -41,17 +41,17 @@ class Year
         date_el = el.css('td:nth-child(4)')
         description_el = el.css('td:nth-child(2)')
 
-        month = self.get_month(date_el.text).to_s
-        day = self.get_day(date_el.text).to_s
-        description = description_el.text.to_s
+        month = self.get_month(date_el.text).to_i
+        day = self.get_day(date_el.text).to_i
+        description = description_el.text
 
         if !defined? @holidays[month]
           @holidays[month] = Array.new
         end
 
         holiday = {
-          'day' => day.to_i,
-          'month' => month.to_i,
+          'day' => day,
+          'month' => month,
           'year' => @year,
           'description' => description
         }
