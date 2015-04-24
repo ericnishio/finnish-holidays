@@ -3,7 +3,7 @@ require 'time'
 require_relative 'year'
 require_relative 'date_utils'
 
-class Holidays
+class Calendar
   MAX_HOLIDAYS = 100
 
   def initialize()
