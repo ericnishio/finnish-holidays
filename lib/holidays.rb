@@ -1,23 +1,19 @@
 require 'json'
 require 'time'
 require_relative 'year'
+require_relative 'date_utils'
 
 class Holidays
   MAX_HOLIDAYS = 100
 
-  @y = nil
-  @m = nil
-  @d = nil
-  @year = nil
-
-  def initialize
+  def initialize()
     @y = Time.now.year
     @m = Time.now.month
     @d = Time.now.day
     @year = Year.new(@y)
   end
 
-  def next count = 3
+  def next(count = 3)
     if count > MAX_HOLIDAYS
       raise "Cannot request more than #{MAX_HOLIDAYS} holidays at once."
     end
@@ -43,22 +39,22 @@ class Holidays
     holidays
   end
 
-  def next_json count = 3
+  def next_json(count = 3)
     self.next(count).to_json
   end
 
-  def next_print count = 3
+  def next_print(count = 3)
     holidays = self.next(count)
 
     holidays.each do |holiday|
-      t = @year.create_date(holiday['year'], holiday['month'], holiday['day'])
+      t = DateUtils.create_date(holiday['year'], holiday['month'], holiday['day'])
       date = t.strftime('%a, %b %e, %Y')
 
       puts "#{date} #{holiday['description']}"
     end
   end
 
-  def goto_next_month
+  def goto_next_month()
     if @m == 12
       @m = 1
       @y += 1
