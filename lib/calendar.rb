@@ -39,10 +39,6 @@ class Calendar
     holidays
   end
 
-  def holidays_json(count = 3)
-    self.holidays(count).to_json
-  end
-
   def holidays_print(count = 3)
     holidays = self.holidays(count)
 
