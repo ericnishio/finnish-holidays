@@ -23,8 +23,8 @@ class Calendar
     while holidays.length < count
       month_index = @m.to_s
 
-      if defined? @year.get_holidays[month_index] and @year.get_holidays[month_index].is_a? Array
-        @year.get_holidays[month_index].each do |holiday|
+      if defined? @year.holidays[month_index] and @year.holidays[month_index].is_a? Array
+        @year.holidays[month_index].each do |holiday|
           if holidays.length < count and holiday['day'].to_i >= @d
             holidays.push(holiday)
           end

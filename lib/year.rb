@@ -5,6 +5,10 @@ require 'time'
 require_relative 'date_utils'
 
 class Year
+  def holidays()
+    @holidays
+  end
+
   def initialize(year)
     if year.is_a? Integer and year > 0
       @year = year.to_i
@@ -21,8 +25,8 @@ class Year
     if File.exist?(file)
       self.load_from_file()
     else
-      self.parse_holidays()
-      self.cache_data()
+      self.parse_from_web()
+      self.cache()
     end
   end
 
@@ -31,7 +35,7 @@ class Year
     @holidays = JSON.parse(json)
   end
 
-  def parse_holidays()
+  def parse_from_web()
     page = Nokogiri::HTML(open('http://www.webcal.fi/fi-FI/pyhat.php?y=' + @year.to_s))
 
     page.css('table.basic tr').each do |el|
@@ -59,19 +63,11 @@ class Year
     end
   end
 
-  def cache_data()
+  def cache()
     File.write(self.get_file_path(), @holidays.to_json)
   end
 
   def get_file_path()
     return File.dirname(__FILE__) + "/../data/#{@year}.json"
-  end
-
-  def get_holidays()
-    @holidays
-  end
-
-  def get_json()
-    self.get_holidays.to_json
   end
 end
