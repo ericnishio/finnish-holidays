@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require './holidays.rb'
+require_relative 'holidays.rb'
 
 Holidays.new.next_print(5)
