@@ -8,4 +8,4 @@ else
   count = 3
 end
 
-Calendar.new.next_print(count)
+Calendar.new.holidays_print(count)

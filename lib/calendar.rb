@@ -13,7 +13,7 @@ class Calendar
     @year = Year.new(@y)
   end
 
-  def next(count = 3)
+  def holidays(count = 3)
     if count > MAX_HOLIDAYS
       raise "Cannot request more than #{MAX_HOLIDAYS} holidays at once."
     end
@@ -32,19 +32,19 @@ class Calendar
       end
 
       if holidays.length < count
-        self.goto_next_month()
+        self.next_month()
       end
     end
 
     holidays
   end
 
-  def next_json(count = 3)
-    self.next(count).to_json
+  def holidays_json(count = 3)
+    self.holidays(count).to_json
   end
 
-  def next_print(count = 3)
-    holidays = self.next(count)
+  def holidays_print(count = 3)
+    holidays = self.holidays(count)
 
     holidays.each do |holiday|
       t = DateUtils.create_date(holiday['year'], holiday['month'], holiday['day'])
@@ -54,7 +54,7 @@ class Calendar
     end
   end
 
-  def goto_next_month()
+  def next_month()
     if @m == 12
       @m = 1
       @y += 1
