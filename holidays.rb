@@ -19,9 +19,11 @@ class Holidays
     holidays = Array.new
 
     while holidays.length < count
-      if defined? @year.get_holidays[@m]
-        @year.get_holidays[@m].each do |holiday|
-          if (holidays.length < count and holiday[:day] >= @d)
+      month_index = @m.to_s
+
+      if defined? @year.get_holidays[month_index]
+        @year.get_holidays[month_index].each do |holiday|
+          if holidays.length < count and holiday['day'].to_i >= @d
             holidays.push(holiday)
           end
         end
@@ -42,7 +44,7 @@ class Holidays
   def next_print count = 3
     holidays = self.next(count)
     holidays.each do |holiday|
-      puts "#{holiday[:day]}.#{holiday[:month]}.#{holiday[:year]} #{holiday[:description]}"
+      puts "#{holiday['day']}.#{holiday['month']}.#{holiday['year']} #{holiday['description']}"
     end
   end
 
@@ -62,44 +64,67 @@ end
 
 class Year
   @year = nil
-  @page = nil
   @holidays = nil
 
   def initialize year
     if year.is_a? Integer and year > 0
       @year = year.to_i
       @holidays = Hash.new { |hash, key| hash[key] = [] }
-      @page = Nokogiri::HTML(open('http://www.webcal.fi/fi-FI/pyhat.php?y=' + @year.to_s))
-      self.parse_holidays()
+      self.load_data()
     else
       raise "Invalid year: #{year}"
     end
   end
 
+  def load_data
+    file = self.get_file_path()
+
+    if File.exist?(file)
+      self.load_from_file()
+    else
+      self.parse_holidays()
+      self.cache_data()
+    end
+  end
+
+  def load_from_file
+    json = File.read(self.get_file_path())
+    @holidays = JSON.parse(json)
+  end
+
   def parse_holidays
-    @page.css('table.basic tr').each do |el|
+    page = Nokogiri::HTML(open('http://www.webcal.fi/fi-FI/pyhat.php?y=' + @year.to_s))
+    page.css('table.basic tr').each do |el|
       if el.css('th:last-child').text != 'Päivämäärä' # TODO: Improve check.
         date_el = el.css('td:nth-child(4)')
         description_el = el.css('td:nth-child(2)')
 
-        month = self.get_month(date_el.text)
-        day = self.get_day(date_el.text)
-        description = description_el.text
+        month = self.get_month(date_el.text).to_s
+        day = self.get_day(date_el.text).to_s
+        description = description_el.text.to_s
 
         if !defined? @holidays[month]
           @holidays[month] = Array.new
         end
 
         holiday = {
-          day: day,
-          month: month,
-          year: @year,
-          description: description
+          'day' => day,
+          'month' => month,
+          'year' => @year,
+          'description' => description
         }
 
         @holidays[month].push(holiday)
       end
     end
+  end
+
+  def cache_data
+    File.write(self.get_file_path(), @holidays.to_json)
+  end
+
+  def get_file_path
+    return "./data/#{@year}.json"
   end
 
   def get_holidays
