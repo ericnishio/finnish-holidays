@@ -4,6 +4,57 @@ require 'nokogiri'
 require 'open-uri'
 require 'json'
 
+class Holidays
+  @y = nil
+  @m = nil
+  @d = nil
+  @year = nil
+
+  def initialize
+    @y = Time.now.year
+    @m = Time.now.month
+    @d = Time.now.day
+    @year = Year.new(@y)
+  end
+
+  def next count = 3
+    holidays = Array.new
+
+    while holidays.length < count
+      if defined? @year.get_holidays[@m]
+        @year.get_holidays[@m].each do |holiday|
+          if (holidays.length < count and holiday[:day] >= @d)
+            holidays.push(holiday)
+          end
+        end
+      end
+
+      if holidays.length < count
+        self.goto_next_month()
+      end
+    end
+
+    holidays
+  end
+
+  def next_json count = 3
+    self.next(count).to_json
+  end
+
+  def goto_next_month
+    if @m == 12
+      @m = 1
+      @y += 1
+      @d = 1
+    else
+      @m += 1
+      @d = 1
+    end
+
+    @year = Year.new(@y)
+  end
+end
+
 class Year
   @year = nil
   @page = nil
@@ -62,57 +113,6 @@ class Year
   def get_month date_string
      parts = date_string.split('.')
      parts[1].to_i
-  end
-end
-
-class Holidays
-  @y = nil
-  @m = nil
-  @d = nil
-  @year = nil
-
-  def initialize
-    @y = Time.now.year
-    @m = Time.now.month
-    @d = Time.now.day
-    @year = Year.new(@y)
-  end
-
-  def next count = 3
-    holidays = Array.new
-
-    while holidays.length < count
-      if defined? @year.get_holidays[@m]
-        @year.get_holidays[@m].each do |holiday|
-          if (holidays.length < count and holiday[:day] >= @d)
-            holidays.push(holiday)
-          end
-        end
-      end
-
-      if holidays.length < count
-        self.goto_next_month()
-      end
-    end
-
-    holidays
-  end
-
-  def next_json count = 3
-    self.next(count).to_json
-  end
-
-  def goto_next_month
-    if @m == 12
-      @m = 1
-      @y += 1
-      @d = 1
-    else
-      @m += 1
-      @d = 1
-    end
-
-    @year = Year.new(@y)
   end
 end
 
