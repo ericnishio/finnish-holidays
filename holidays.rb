@@ -108,8 +108,8 @@ class Year
         end
 
         holiday = {
-          'day' => day,
-          'month' => month,
+          'day' => day.to_i,
+          'month' => month.to_i,
           'year' => @year,
           'description' => description
         }
