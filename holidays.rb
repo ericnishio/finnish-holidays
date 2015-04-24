@@ -41,6 +41,13 @@ class Holidays
     self.next(count).to_json
   end
 
+  def next_print count = 3
+    holidays = self.next(count)
+    holidays.each do |holiday|
+      puts "#{holiday[:day]}.#{holiday[:month]}.#{holiday[:year]} #{holiday[:description]}"
+    end
+  end
+
   def goto_next_month
     if @m == 12
       @m = 1
@@ -116,5 +123,4 @@ class Year
   end
 end
 
-holidays = Holidays.new
-puts holidays.next(5)
+Holidays.new.next_print
