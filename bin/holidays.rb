@@ -12,11 +12,11 @@ optparse = OptionParser.new do |opts|
   end
 
   options[:all] = false
-  opts.on('-a', '--all', 'Show all holidays') do
+  opts.on('-a', '--all', 'Exclude holidays falling on a weekend') do
     options[:all] = true
   end
 
-  opts.on( '-h', '--help', 'Display this screen' ) do
+  opts.on('-h', '--help', 'Show this screen') do
     puts opts
     exit
   end
