@@ -32,7 +32,7 @@ class Calendar
       end
 
       if holidays.length < count
-        self.next_month()
+        next_month()
       end
     end
 
@@ -49,6 +49,8 @@ class Calendar
       puts "#{date} #{holiday['description']}"
     end
   end
+
+private
 
   def next_month()
     if @m == 12

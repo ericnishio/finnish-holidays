@@ -7,12 +7,12 @@ class DateUtils
     Time.parse("#{year}-#{month}-#{day}")
   end
 
-  def self.get_day(date_string)
+  def self.parse_day(date_string)
     parts = date_string.split('.')
     parts[0].to_i
   end
 
-  def self.get_month(date_string)
+  def self.parse_month(date_string)
      parts = date_string.split('.')
      parts[1].to_i
   end
