@@ -8,7 +8,7 @@ class Year
   def initialize(year)
     if year.is_a? Integer and year > 0
       @year = year.to_i
-      @holidays = Hash.new { |hash, key| hash[key] = [] }
+      @holidays = {}
       load_data()
     else
       raise "Invalid year: #{year}"
@@ -77,15 +77,15 @@ private
     month = month.to_i
     day = day.to_i
 
-    if !defined? @holidays[month]
-      @holidays[month] = Array.new
+    if !@holidays[month].is_a? Array
+      @holidays[month] = []
     end
 
     holiday = {
-      :year => year,
-      :month => month,
-      :day => day,
-      :description => description
+      'year' => year,
+      'month' => month,
+      'day' => day,
+      'description' => description
     }
 
     @holidays[month].push(holiday)
