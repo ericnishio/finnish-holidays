@@ -1,7 +1,7 @@
-holidays
-========
+finnish-holidays
+================
 
-A tool for retrieving national holidays.
+A tool for displaying Finnish national holidays.
 
 ## Installation
 
@@ -10,8 +10,8 @@ gem install bundler
 bundle install
 ```
 
-## Example Commands
+## Usage
 
 ```
-ruby bin/holidays.rb # prints the next 3 holidays
+ruby bin/holidays.rb
 ```
