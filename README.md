@@ -32,5 +32,5 @@ Help:
 ```ruby
 require 'finnish-holidays'
 
-FinnishHolidays.holidays(10, false)
+FinnishHolidays.holidays()
 ```
