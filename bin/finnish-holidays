@@ -21,6 +21,12 @@ optparse = OptionParser.new do |opts|
     puts opts
     exit
   end
+
+  opts.on('-v', '--version', 'Show version') do
+    require_relative '../lib/version'
+    puts FinnishHolidays::VERSION
+    exit
+  end
 end
 
 optparse.parse!
