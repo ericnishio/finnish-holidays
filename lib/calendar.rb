@@ -1,7 +1,7 @@
 require 'json'
 require 'time'
 require_relative 'year'
-require_relative 'date_utils'
+require_relative 'date-utils'
 
 class Calendar
   MAX_HOLIDAYS = 100
