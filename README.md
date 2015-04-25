@@ -13,5 +13,5 @@ bundle install
 ## Example Commands
 
 ```
-ruby bin/next.rb 5 # prints the next 3 holidays
+ruby bin/holidays.rb # prints the next 3 holidays
 ```
