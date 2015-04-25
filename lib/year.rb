@@ -47,20 +47,24 @@ class Year
         day = DateUtils.get_day(date_el.text).to_i
         description = description_el.text
 
-        if !defined? @holidays[month]
-          @holidays[month] = Array.new
-        end
-
-        holiday = {
-          'day' => day,
-          'month' => month,
-          'year' => @year,
-          'description' => description
-        }
-
-        @holidays[month].push(holiday)
+        self.add_holiday(@year, month, day, description)
       end
     end
+  end
+
+  def add_holiday(year, month, day, description)
+    if !defined? @holidays[month]
+      @holidays[month] = Array.new
+    end
+
+    holiday = {
+      :year => year,
+      :month => month,
+      :day => day,
+      :description => description
+    }
+
+    @holidays[month].push(holiday)
   end
 
   def cache()
