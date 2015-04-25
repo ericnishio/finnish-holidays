@@ -19,6 +19,24 @@ class Year
     @holidays
   end
 
+  def discard_weekends()
+    holidays = {}
+
+    @holidays.each do |month, array|
+      array.each do |holiday|
+        if !DateUtils.is_weekend(holiday['year'], holiday['month'], holiday['day'])
+          if !holidays[month].is_a? Array
+            holidays[month] = []
+          end
+
+          holidays[month].push(holiday)
+        end
+      end
+    end
+
+    @holidays = holidays
+  end
+
 private
 
   def load_data()

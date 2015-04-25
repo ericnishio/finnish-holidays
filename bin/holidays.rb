@@ -24,4 +24,4 @@ end
 
 optparse.parse!
 
-Calendar.new.holidays_print(options[:count])
+Calendar.new.holidays_print(options[:count], options[:all])

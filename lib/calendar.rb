@@ -13,7 +13,7 @@ class Calendar
     @year = Year.new(@y)
   end
 
-  def holidays(count = 3)
+  def holidays(count = 3, all = false)
     if count > MAX_HOLIDAYS
       raise "Cannot request more than #{MAX_HOLIDAYS} holidays at once."
     end
@@ -22,6 +22,10 @@ class Calendar
 
     while holidays.length < count
       month_index = @m.to_s
+
+      if !all
+        @year.discard_weekends()
+      end
 
       if defined? @year.holidays[month_index] and @year.holidays[month_index].is_a? Array
         @year.holidays[month_index].each do |holiday|
@@ -39,8 +43,8 @@ class Calendar
     holidays
   end
 
-  def holidays_print(count = 3)
-    holidays = self.holidays(count)
+  def holidays_print(count = 3, all = false)
+    holidays = self.holidays(count, all)
 
     holidays.each do |holiday|
       t = DateUtils.create_date(holiday['year'], holiday['month'], holiday['day'])

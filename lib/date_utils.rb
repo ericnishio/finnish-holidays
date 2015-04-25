@@ -17,6 +17,12 @@ class DateUtils
      parts[1].to_i
   end
 
+  def self.is_weekend(year, month, day)
+    t = self.create_date(year, month, day)
+    day_of_week = t.strftime('%u').to_i
+    day_of_week == 6 or day_of_week == 7
+  end
+
   def self.zerofy(num)
     num = num.to_i
 
