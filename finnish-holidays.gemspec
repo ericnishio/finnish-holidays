@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["eric@self-learner.com"]
 
   spec.summary       = %q{A tool for displaying Finnish national holidays.}
-  spec.description   = %q{A tool for displaying Finnish national holidays.}
+  spec.description   = %q{A CLI and library for displaying Finnish national holidays.}
   spec.homepage      = "https://github.com/ericnishio/finnish-holidays"
   spec.license       = "MIT"
 
@@ -23,9 +23,12 @@ Gem::Specification.new do |spec|
   end
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.bindir        = "bin"
+  spec.executables   = "finnish-holidays"
   spec.require_paths = ["lib"]
+
+  spec.add_dependency "nokogiri", "~> 1.6.2"
+  spec.add_dependency "json", "~> 1.8.2"
 
   spec.add_development_dependency "bundler", "~> 1.9"
   spec.add_development_dependency "rake", "~> 10.0"
