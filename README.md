@@ -19,8 +19,18 @@ Or install it yourself as:
 
     $ gem install finnish-holidays
 
-## Usage
+## CLI Usage
 
-```
-ruby bin/finnish-holidays.rb
+    $ finnish-holidays
+
+Help:
+
+    $ finnish-holidays --help
+
+## In Code
+
+```ruby
+require 'finnish-holidays'
+
+FinnishHolidays.holidays(10, false)
 ```
