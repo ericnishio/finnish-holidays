@@ -1,2 +1,4 @@
+.bundle/
 data/
 !data/.gitkeep
+*.gem
