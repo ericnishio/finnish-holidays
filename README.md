@@ -22,5 +22,5 @@ Or install it yourself as:
 ## Usage
 
 ```
-ruby bin/holidays.rb
+ruby bin/finnish-holidays.rb
 ```
