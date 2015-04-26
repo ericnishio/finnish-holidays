@@ -1,4 +1,7 @@
 class DateUtils
+  SATURDAY = 6
+  SUNDAY = 7
+
   def self.create_date(year, month, day)
     day = self.zerofy(day)
     month = self.zerofy(month)
@@ -20,7 +23,7 @@ class DateUtils
   def self.is_weekend(year, month, day)
     t = self.create_date(year, month, day)
     day_of_week = t.strftime('%u').to_i
-    day_of_week == 6 or day_of_week == 7
+    [SATURDAY, SUNDAY].include? day_of_week
   end
 
   def self.zerofy(num)
