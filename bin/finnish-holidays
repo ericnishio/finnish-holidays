@@ -10,7 +10,7 @@ options = {}
 
 optparse = OptionParser.new do |opts|
   options[:count] = 3
-  opts.on('-cCOUNT', '--count=COUNT', 'Number of holidays to show') do |count|
+  opts.on('-cCOUNT', '--count=COUNT', 'Number of holidays to list') do |count|
     options[:count] = count.to_i
   end
 
@@ -30,12 +30,12 @@ optparse = OptionParser.new do |opts|
   end
 
   options[:year] = nil
-  opts.on('-yYEAR', '--year=YEAR', 'Show specific year') do |year|
+  opts.on('-yYEAR', '--year=YEAR', 'List holidays by year') do |year|
     options[:year] = year.to_i
   end
 
   options[:month] = nil
-  opts.on('-mMONTH', '--month=MONTH', 'Show specific month') do |month|
+  opts.on('-mMONTH', '--month=MONTH', 'List holidays by month') do |month|
     options[:month] = month.to_i
   end
 end
