@@ -6,14 +6,15 @@ require_relative '../utils/date-utils'
 class Calendar
   MAX_HOLIDAYS = 100
 
-  def initialize()
-    @y = Time.now.year
-    @m = Time.now.month
-    @d = Time.now.day
+  def initialize(y = nil, m = nil, d = nil)
+    @y = y == nil ? Time.now.year : y
+    @m = m == nil ? Time.now.month : m
+    @d = d == nil ? Time.now.day : d
+
     @year = Year.new(@y)
   end
 
-  def holidays(count = 3, all = false)
+  def next(count = 3, include_weekends = false)
     if count > MAX_HOLIDAYS
       raise "Cannot request more than #{MAX_HOLIDAYS} holidays at once."
     end
@@ -23,7 +24,7 @@ class Calendar
     while holidays.length < count
       month_index = @m.to_s
 
-      if !all
+      if !include_weekends
         @year.discard_weekends()
       end
 
@@ -37,6 +38,22 @@ class Calendar
 
       if holidays.length < count
         next_month()
+      end
+    end
+
+    holidays
+  end
+
+  def year(year, weekends)
+    if !weekends
+      @year.discard_weekends()
+    end
+
+    holidays = []
+
+    @year.holidays.each do |month, array|
+      array.each do |holiday|
+        holidays.push(holiday)
       end
     end
 

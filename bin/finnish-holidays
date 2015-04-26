@@ -14,9 +14,9 @@ optparse = OptionParser.new do |opts|
     options[:count] = count.to_i
   end
 
-  options[:all] = false
+  options[:include_weekends] = false
   opts.on('-a', '--all', 'Include holidays falling on a weekend') do
-    options[:all] = true
+    options[:include_weekends] = true
   end
 
   opts.on('-h', '--help', 'Show this screen') do
@@ -28,11 +28,21 @@ optparse = OptionParser.new do |opts|
     puts FinnishHolidays::VERSION
     exit
   end
+
+  options[:year] = nil
+  opts.on('-yYEAR', '--year=YEAR', 'Show specific year') do |year|
+    options[:year] = year.to_i
+  end
 end
 
 optparse.parse!
 
-holidays = FinnishHolidays.holidays(options[:count], options[:all])
+if options[:year].is_a? Integer
+  holidays = FinnishHolidays.year(options[:year], options[:include_weekends])
+else
+  holidays = FinnishHolidays.next(options[:count], options[:include_weekends])
+end
+
 holidays.each do |holiday|
   t = DateUtils.create_date(holiday['year'], holiday['month'], holiday['day'])
   date = t.strftime('%a, %b %e, %Y')
