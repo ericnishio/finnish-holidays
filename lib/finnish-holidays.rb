@@ -1,7 +1,7 @@
-require_relative 'calendar'
+require_relative 'classes/calendar'
 
-class FinnishHolidays
+module FinnishHolidays
   def self.holidays(count = 3, all = false)
-    Calendar.new.holidays
+    Calendar.new.holidays(count, all)
   end
 end

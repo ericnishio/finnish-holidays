@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'json'
 require 'time'
-require_relative 'date-utils'
+require_relative '../utils/date-utils'
 
 class Year
   def initialize(year)
@@ -97,6 +97,6 @@ private
 
   def get_cache_file_path
     cwd = File.dirname(__FILE__)
-    "#{cwd}/../data/#{@year}.json"
+    "#{cwd}/../../data/#{@year}.json"
   end
 end

@@ -1,7 +1,7 @@
 require 'json'
 require 'time'
 require_relative 'year'
-require_relative 'date-utils'
+require_relative '../utils/date-utils'
 
 class Calendar
   MAX_HOLIDAYS = 100
@@ -41,17 +41,6 @@ class Calendar
     end
 
     holidays
-  end
-
-  def holidays_print(count = 3, all = false)
-    holidays = self.holidays(count, all)
-
-    holidays.each do |holiday|
-      t = DateUtils.create_date(holiday['year'], holiday['month'], holiday['day'])
-      date = t.strftime('%a, %b %e, %Y')
-
-      puts "#{date} #{holiday['description']}"
-    end
   end
 
 private

@@ -2,7 +2,9 @@
 # encoding: UTF-8
 
 require 'optparse'
-require_relative '../lib/calendar'
+require_relative '../lib/finnish-holidays'
+require_relative '../lib/version'
+require_relative '../lib/utils/date-utils'
 
 options = {}
 
@@ -23,7 +25,6 @@ optparse = OptionParser.new do |opts|
   end
 
   opts.on('-v', '--version', 'Show version') do
-    require_relative '../lib/version'
     puts FinnishHolidays::VERSION
     exit
   end
@@ -31,4 +32,9 @@ end
 
 optparse.parse!
 
-Calendar.new.holidays_print(options[:count], options[:all])
+holidays = FinnishHolidays.holidays(options[:count], options[:all])
+holidays.each do |holiday|
+  t = DateUtils.create_date(holiday['year'], holiday['month'], holiday['day'])
+  date = t.strftime('%a, %b %e, %Y')
+  puts "#{date} #{holiday['description']}"
+end
