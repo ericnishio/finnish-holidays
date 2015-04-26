@@ -6,7 +6,7 @@ require_relative '../utils/date-utils'
 
 class Year
   def initialize(year)
-    if year.is_a? Integer and year > 0
+    if (year.is_a? Integer) && (year > 0)
       @year = year.to_i
       @holidays = {}
       load_data()

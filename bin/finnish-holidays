@@ -42,10 +42,10 @@ end
 
 optparse.parse!
 
-if options[:month].is_a? Integer and !options[:year].is_a? Integer
+if (options[:month].is_a? Integer) && (!options[:year].is_a? Integer)
   puts 'You must also specify a year with --year=YEAR'
   exit
-elsif options[:year].is_a? Integer and options[:month].is_a? Integer
+elsif (options[:year].is_a? Integer) && (options[:month].is_a? Integer)
   holidays = FinnishHolidays.month(options[:month], options[:year], options[:include_weekends])
 elsif options[:year].is_a? Integer
   holidays = FinnishHolidays.year(options[:year], options[:include_weekends])
