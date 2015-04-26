@@ -15,11 +15,11 @@ class Year
     end
   end
 
-  def holidays()
+  def holidays
     @holidays
   end
 
-  def discard_weekends()
+  def discard_weekends
     holidays = {}
 
     @holidays.each do |month, array|
@@ -39,7 +39,7 @@ class Year
 
 private
 
-  def load_data()
+  def load_data
     file = get_cache_file_path()
 
     if File.exist?(file)
@@ -50,12 +50,12 @@ private
     end
   end
 
-  def load_from_file()
+  def load_from_file
     json = File.read(get_cache_file_path())
     @holidays = JSON.parse(json)
   end
 
-  def load_from_web()
+  def load_from_web
     page = Nokogiri::HTML(open('http://www.webcal.fi/fi-FI/pyhat.php?y=' + @year.to_s))
 
     page.css('table.basic tr').each do |el|
@@ -91,11 +91,12 @@ private
     @holidays[month].push(holiday)
   end
 
-  def cache()
+  def cache
     File.write(get_cache_file_path(), @holidays.to_json)
   end
 
-  def get_cache_file_path()
-    return File.dirname(__FILE__) + "/../data/#{@year}.json"
+  def get_cache_file_path
+    cwd = File.dirname(__FILE__)
+    "#{cwd}/../data/#{@year}.json"
   end
 end

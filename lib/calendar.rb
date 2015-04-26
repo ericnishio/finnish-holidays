@@ -18,7 +18,7 @@ class Calendar
       raise "Cannot request more than #{MAX_HOLIDAYS} holidays at once."
     end
 
-    holidays = Array.new
+    holidays = []
 
     while holidays.length < count
       month_index = @m.to_s
@@ -56,7 +56,7 @@ class Calendar
 
 private
 
-  def next_month()
+  def next_month
     if @m == 12
       @m = 1
       @y += 1
