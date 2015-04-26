@@ -10,4 +10,9 @@ module FinnishHolidays
   def self.year(year, include_weekends = false)
     Calendar.new(year, 1, 1).year(year, include_weekends)
   end
+
+  # Lists holidays for the given month (and year)
+  def self.month(month, year, include_weekends = false)
+    Calendar.new(year, month, 1).month(month, year, include_weekends)
+  end
 end

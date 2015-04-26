@@ -77,8 +77,10 @@ private
     month = month.to_i
     day = day.to_i
 
-    if !@holidays[month].is_a? Array
-      @holidays[month] = []
+    month_index = month.to_s
+
+    if !@holidays[month_index].is_a? Array
+      @holidays[month_index] = []
     end
 
     holiday = {
@@ -88,7 +90,7 @@ private
       'description' => description
     }
 
-    @holidays[month].push(holiday)
+    @holidays[month_index].push(holiday)
   end
 
   def cache

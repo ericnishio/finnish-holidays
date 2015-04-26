@@ -44,7 +44,7 @@ class Calendar
     holidays
   end
 
-  def year(year, weekends)
+  def year(year, weekends = false)
     if !weekends
       @year.discard_weekends()
     end
@@ -53,6 +53,22 @@ class Calendar
 
     @year.holidays.each do |month, array|
       array.each do |holiday|
+        holidays.push(holiday)
+      end
+    end
+
+    holidays
+  end
+
+  def month(month, year, weekends = false)
+    if !weekends
+      @year.discard_weekends()
+    end
+
+    holidays = []
+
+    if @year.holidays[month.to_s].is_a? Array
+      @year.holidays[month.to_s].each do |holiday|
         holidays.push(holiday)
       end
     end

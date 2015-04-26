@@ -33,11 +33,21 @@ optparse = OptionParser.new do |opts|
   opts.on('-yYEAR', '--year=YEAR', 'Show specific year') do |year|
     options[:year] = year.to_i
   end
+
+  options[:month] = nil
+  opts.on('-mMONTH', '--month=MONTH', 'Show specific month') do |month|
+    options[:month] = month.to_i
+  end
 end
 
 optparse.parse!
 
-if options[:year].is_a? Integer
+if options[:month].is_a? Integer and !options[:year].is_a? Integer
+  puts 'You must also specify a year with --year=YEAR'
+  exit
+elsif options[:year].is_a? Integer and options[:month].is_a? Integer
+  holidays = FinnishHolidays.month(options[:month], options[:year], options[:include_weekends])
+elsif options[:year].is_a? Integer
   holidays = FinnishHolidays.year(options[:year], options[:include_weekends])
 else
   holidays = FinnishHolidays.next(options[:count], options[:include_weekends])
