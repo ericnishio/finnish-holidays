@@ -32,5 +32,7 @@ Help:
 ```ruby
 require 'finnish-holidays'
 
-FinnishHolidays.holidays()
+FinnishHolidays.next()
+FinnishHolidays.year(2016)
+FinnishHolidays.month(1, 2017)
 ```
