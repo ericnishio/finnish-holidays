@@ -24,3 +24,7 @@ FinnishHolidays.next()
 FinnishHolidays.year(2016)
 FinnishHolidays.month(1, 2017)
 ```
+
+## Run Tests
+
+    $ rspec
