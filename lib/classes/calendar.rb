@@ -1,4 +1,3 @@
-require 'json'
 require 'time'
 require_relative 'year'
 require_relative '../utils/date-utils'
@@ -22,15 +21,13 @@ class Calendar
     holidays = []
 
     while holidays.length < count
-      month_index = @m.to_s
-
       if !include_weekends
         @year.discard_weekends()
       end
 
-      if (defined? @year.holidays[month_index]) && (@year.holidays[month_index].is_a? Array)
-        @year.holidays[month_index].each do |holiday|
-          if (holidays.length < count) && (holiday['day'].to_i >= @d)
+      if (defined? @year.holidays[@m]) && (@year.holidays[@m].is_a? Array)
+        @year.holidays[@m].each do |holiday|
+          if (holidays.length < count) && (holiday['day'] >= @d)
             holidays.push(holiday)
           end
         end
@@ -67,8 +64,8 @@ class Calendar
 
     holidays = []
 
-    if @year.holidays[month.to_s].is_a? Array
-      @year.holidays[month.to_s].each do |holiday|
+    if @year.holidays[month].is_a? Array
+      @year.holidays[month].each do |holiday|
         holidays.push(holiday)
       end
     end

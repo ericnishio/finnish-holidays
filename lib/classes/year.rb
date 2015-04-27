@@ -1,13 +1,10 @@
-require 'nokogiri'
-require 'open-uri'
-require 'json'
-require 'time'
+require 'date'
 require_relative '../utils/date-utils'
 
 class Year
   def initialize(year)
-    if (year.is_a? Integer) && (year > 0)
-      @year = year.to_i
+    if year > 0
+      @year = year
       @holidays = {}
       load_data()
     else
@@ -40,53 +37,31 @@ class Year
 private
 
   def load_data
-    file = get_cache_file_path()
-
-    if File.exist?(file)
-      load_from_file()
-    else
-      load_from_web()
-      load_additional_holidays()
-      cache()
-    end
+    # Holidays must be added in order
+    add_holiday(Date.new(@year, 1, 1), "New Year's Day")
+    add_holiday(Date.new(@year, 1, 6), 'Epiphany')
+    #add_holiday(@year, 0, 0, 'Good Friday')
+    add_holiday(DateUtils.get_easter_sunday(@year), 'Easter Sunday')
+    #add_holiday(@year, 0, 0, 'Easter Monday')
+    add_holiday(Date.new(@year, 1, 1), 'May Day')
+    #add_holiday(@year, 0, 0, 'Ascension Day')
+    #add_holiday(@year, 0, 0, 'Pentecost')
+    add_holiday(DateUtils.get_midsummer_eve(@year), 'Midsummer Eve (unofficial)')
+    #add_holiday(@year, 0, 0, 'Midsummer Day')
+    #add_holiday(@year, 0, 0, "All Saints' Day")
+    add_holiday(Date.new(@year, 12, 6), 'Independence Day')
+    add_holiday(Date.new(@year, 12, 24), 'Christmas Eve (unofficial)')
+    add_holiday(Date.new(@year, 12, 25), 'Christmas Day')
+    add_holiday(Date.new(@year, 12, 26), "St. Stephen's Day")
   end
 
-  def load_from_file
-    json = File.read(get_cache_file_path())
-    @holidays = JSON.parse(json)
-  end
+  def add_holiday(date, description)
+    year = DateUtils.get_year_from_date(date)
+    month = DateUtils.get_month_from_date(date)
+    day = DateUtils.get_day_from_date(date)
 
-  def load_from_web
-    page = Nokogiri::HTML(open('http://www.webcal.fi/fi-FI/pyhat.php?y=' + @year.to_s))
-
-    page.css('table.basic tr').each do |el|
-      if el.css('th:last-child').text != 'Päivämäärä' # TODO: Improve check.
-        date_el = el.css('td:nth-child(4)')
-        description_el = el.css('td:nth-child(2)')
-
-        month = DateUtils.parse_month(date_el.text)
-        day = DateUtils.parse_day(date_el.text)
-        description = description_el.text
-
-        add_holiday(@year, month, day, description)
-      end
-    end
-  end
-
-  def load_additional_holidays
-    add_holiday(@year, 12, 24, 'Jouluaatto (unofficial)', true)
-    add_holiday(@year, 6, DateUtils.get_midsummer_eve(@year), 'Juhannusaatto (unofficial)', true)
-  end
-
-  def add_holiday(year, month, day, description, find_position = false)
-    year = year.to_i
-    month = month.to_i
-    day = day.to_i
-
-    month_index = month.to_s
-
-    if !@holidays[month_index].is_a? Array
-      @holidays[month_index] = []
+    if !@holidays[month].is_a? Array
+      @holidays[month] = []
     end
 
     holiday = {
@@ -96,28 +71,6 @@ private
       'description' => description
     }
 
-    if find_position && (@holidays[month_index].length > 0)
-      found = false
-
-      @holidays[month_index].each_with_index do |h, index|
-        if !found
-          if day.to_i < h['day'].to_i
-            @holidays[month_index].insert(index, holiday)
-            found = true
-          end
-        end
-      end
-    else
-      @holidays[month_index].push(holiday)
-    end
-  end
-
-  def cache
-    File.write(get_cache_file_path(), @holidays.to_json)
-  end
-
-  def get_cache_file_path
-    cwd = File.dirname(__FILE__)
-    "#{cwd}/../../data/#{@year}.json"
+    @holidays[month].push(holiday)
   end
 end

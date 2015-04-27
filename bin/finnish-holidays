@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 
+require 'date'
 require 'optparse'
 require_relative '../lib/finnish-holidays'
 require_relative '../lib/version'
@@ -54,7 +55,7 @@ else
 end
 
 holidays.each do |holiday|
-  t = DateUtils.create_date(holiday['year'], holiday['month'], holiday['day'])
+  t = Date.new(holiday['year'], holiday['month'], holiday['day'])
   date = t.strftime('%a, %b %e, %Y')
   puts "#{date} #{holiday['description']}"
 end
