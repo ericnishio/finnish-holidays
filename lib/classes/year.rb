@@ -6,7 +6,7 @@ class Year
     if year > 0
       @year = year
       @holidays = {}
-      load_data()
+      load_holidays()
     else
       raise "Invalid year: #{year}"
     end
@@ -36,11 +36,11 @@ class Year
 
 private
 
-  def load_data
+  def load_holidays
     # Holidays must be added in order
     add_holiday(Date.new(@year, 1, 1), "New Year's Day")
     add_holiday(Date.new(@year, 1, 6), 'Epiphany')
-    #add_holiday(@year, 0, 0, 'Good Friday')
+    add_holiday(DateUtils.get_good_friday(@year), 'Good Friday')
     add_holiday(DateUtils.get_easter_sunday(@year), 'Easter Sunday')
     #add_holiday(@year, 0, 0, 'Easter Monday')
     add_holiday(Date.new(@year, 1, 1), 'May Day')

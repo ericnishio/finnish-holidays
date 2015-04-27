@@ -39,6 +39,21 @@ class DateUtils
     Date.new(year, month, day)
   end
 
+  def self.get_good_friday(year)
+    date = self.get_easter_sunday(year)
+    day_of_week = nil
+
+    while day_of_week != FRIDAY
+      day_of_week = date.strftime('%u').to_i
+
+      if (day_of_week != FRIDAY)
+        date = date.prev_day
+      end
+    end
+
+    date
+  end
+
   def self.get_year_from_date(date)
     date.strftime('%Y').to_i
   end
