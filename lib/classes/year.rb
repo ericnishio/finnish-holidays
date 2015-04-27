@@ -48,6 +48,8 @@ private
       load_from_web()
       cache()
     end
+
+    load_additional_holidays()
   end
 
   def load_from_file
@@ -70,6 +72,12 @@ private
         add_holiday(@year, month, day, description)
       end
     end
+  end
+
+  def load_additional_holidays
+    # TODO: Place additional holidays in the correct array slot.
+    add_holiday(@year, 12, 24, 'Jouluaatto (unofficial)')
+    add_holiday(@year, 6, DateUtils.get_midsummer_eve(@year), 'Juhannusaatto (unofficial)')
   end
 
   def add_holiday(year, month, day, description)

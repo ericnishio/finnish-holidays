@@ -1,4 +1,5 @@
 class DateUtils
+  FRIDAY = 5
   SATURDAY = 6
   SUNDAY = 7
 
@@ -24,6 +25,15 @@ class DateUtils
     t = self.create_date(year, month, day)
     day_of_week = t.strftime('%u').to_i
     [SATURDAY, SUNDAY].include? day_of_week
+  end
+
+  def self.get_midsummer_eve(year)
+    [19, 20, 21, 22, 23, 24, 25].each do |day|
+      day_of_week = self.create_date(year, 6, day).strftime('%u').to_i
+      if day_of_week == FRIDAY
+        return day
+      end
+    end
   end
 
   def self.zerofy(num)
