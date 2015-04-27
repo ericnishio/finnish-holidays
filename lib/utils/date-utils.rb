@@ -11,15 +11,6 @@ class DateUtils
     [SATURDAY, SUNDAY].include? day_of_week
   end
 
-  def self.get_midsummer_eve(year)
-    [19, 20, 21, 22, 23, 24, 25].each do |day|
-      day_of_week = Date.new(year, 6, day).strftime('%u').to_i
-      if day_of_week == FRIDAY
-        return Date.new(year, 6, day)
-      end
-    end
-  end
-
   def self.get_easter_sunday(year)
     a = year % 19
     b = year / 100
@@ -39,10 +30,12 @@ class DateUtils
     Date.new(year, month, day)
   end
 
+  # Day after Easter Sunday
   def self.get_easter_monday(year)
     self.get_easter_sunday(year).next_day
   end
 
+  # Friday before Easter Sunday
   def self.get_good_friday(year)
     date = self.get_easter_sunday(year)
     day_of_week = nil
@@ -56,6 +49,28 @@ class DateUtils
     end
 
     date
+  end
+
+  # 39 days after Easter Sunday
+  def self.get_ascension_day(year)
+    easter_sunday = self.get_easter_sunday(year)
+    easter_sunday.next_day(39)
+  end
+
+  # 49 days after Easter Sunday
+  def self.get_pentecost(year)
+    easter_sunday = self.get_easter_sunday(year)
+    easter_sunday.next_day(49)
+  end
+
+  # Friday between June 19-25
+  def self.get_midsummer_eve(year)
+    [19, 20, 21, 22, 23, 24, 25].each do |day|
+      day_of_week = Date.new(year, 6, day).strftime('%u').to_i
+      if day_of_week == FRIDAY
+        return Date.new(year, 6, day)
+      end
+    end
   end
 
   def self.get_year_from_date(date)
