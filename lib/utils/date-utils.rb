@@ -65,9 +65,21 @@ class DateUtils
 
   # Friday between June 19-25
   def self.get_midsummer_eve(year)
-    [19, 20, 21, 22, 23, 24, 25].each do |day|
+    (19..25).to_a.each do |day|
       day_of_week = Date.new(year, 6, day).strftime('%u').to_i
+
       if day_of_week == FRIDAY
+        return Date.new(year, 6, day)
+      end
+    end
+  end
+
+  # Saturday between June 20-26
+  def self.get_midsummer_day(year)
+    (20..26).to_a.each do |day|
+      day_of_week = Date.new(year, 6, day).strftime('%u').to_i
+
+      if day_of_week == SATURDAY
         return Date.new(year, 6, day)
       end
     end
