@@ -46,10 +46,9 @@ private
       load_from_file()
     else
       load_from_web()
+      load_additional_holidays()
       cache()
     end
-
-    load_additional_holidays()
   end
 
   def load_from_file
