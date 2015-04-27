@@ -74,12 +74,11 @@ private
   end
 
   def load_additional_holidays
-    # TODO: Place additional holidays in the correct array slot.
-    add_holiday(@year, 12, 24, 'Jouluaatto (unofficial)')
-    add_holiday(@year, 6, DateUtils.get_midsummer_eve(@year), 'Juhannusaatto (unofficial)')
+    add_holiday(@year, 12, 24, 'Jouluaatto (unofficial)', true)
+    add_holiday(@year, 6, DateUtils.get_midsummer_eve(@year), 'Juhannusaatto (unofficial)', true)
   end
 
-  def add_holiday(year, month, day, description)
+  def add_holiday(year, month, day, description, find_position = false)
     year = year.to_i
     month = month.to_i
     day = day.to_i
@@ -97,7 +96,20 @@ private
       'description' => description
     }
 
-    @holidays[month_index].push(holiday)
+    if find_position && (@holidays[month_index].length > 0)
+      found = false
+
+      @holidays[month_index].each_with_index do |h, index|
+        if !found
+          if day.to_i < h['day'].to_i
+            @holidays[month_index].insert(index, holiday)
+            found = true
+          end
+        end
+      end
+    else
+      @holidays[month_index].push(holiday)
+    end
   end
 
   def cache
