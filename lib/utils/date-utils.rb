@@ -39,6 +39,10 @@ class DateUtils
     Date.new(year, month, day)
   end
 
+  def self.get_easter_monday(year)
+    self.get_easter_sunday(year).next_day
+  end
+
   def self.get_good_friday(year)
     date = self.get_easter_sunday(year)
     day_of_week = nil

@@ -42,7 +42,7 @@ private
     add_holiday(Date.new(@year, 1, 6), 'Epiphany')
     add_holiday(DateUtils.get_good_friday(@year), 'Good Friday')
     add_holiday(DateUtils.get_easter_sunday(@year), 'Easter Sunday')
-    #add_holiday(@year, 0, 0, 'Easter Monday')
+    add_holiday(DateUtils.get_easter_monday(@year), 'Easter Monday')
     add_holiday(Date.new(@year, 1, 1), 'May Day')
     #add_holiday(@year, 0, 0, 'Ascension Day')
     #add_holiday(@year, 0, 0, 'Pentecost')
