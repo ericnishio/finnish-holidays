@@ -48,7 +48,7 @@ private
     add_holiday(DateUtils.get_pentecost(@year), 'Pentecost')
     add_holiday(DateUtils.get_midsummer_eve(@year), 'Midsummer Eve (unofficial)')
     add_holiday(DateUtils.get_midsummer_day(@year), 'Midsummer Day')
-    #add_holiday(@year, 0, 0, "All Saints' Day")
+    add_holiday(DateUtils.get_all_saints_day(@year), "All Saints' Day")
     add_holiday(Date.new(@year, 12, 6), 'Independence Day')
     add_holiday(Date.new(@year, 12, 24), 'Christmas Eve (unofficial)')
     add_holiday(Date.new(@year, 12, 25), 'Christmas Day')

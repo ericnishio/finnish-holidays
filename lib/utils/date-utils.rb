@@ -65,22 +65,44 @@ class DateUtils
 
   # Friday between June 19-25
   def self.get_midsummer_eve(year)
+    month = 6
+
     (19..25).to_a.each do |day|
-      day_of_week = Date.new(year, 6, day).strftime('%u').to_i
+      day_of_week = Date.new(year, month, day).strftime('%u').to_i
 
       if day_of_week == FRIDAY
-        return Date.new(year, 6, day)
+        return Date.new(year, month, day)
       end
     end
   end
 
   # Saturday between June 20-26
   def self.get_midsummer_day(year)
+    month = 6
+
     (20..26).to_a.each do |day|
-      day_of_week = Date.new(year, 6, day).strftime('%u').to_i
+      day_of_week = Date.new(year, month, day).strftime('%u').to_i
 
       if day_of_week == SATURDAY
-        return Date.new(year, 6, day)
+        return Date.new(year, month, day)
+      end
+    end
+  end
+
+  # Saturday between October 31 and November 6
+  def self.get_all_saints_day(year)
+    october_31 = Date.new(year, 10, 31)
+    second_month = 11
+
+    if october_31.strftime('%u').to_i == SATURDAY
+      return october_31
+    else
+      (1..6).to_a.each do |day|
+        day_of_week = Date.new(year, second_month, day).strftime('%u').to_i
+
+        if day_of_week == SATURDAY
+          return Date.new(year, second_month, day)
+        end
       end
     end
   end
