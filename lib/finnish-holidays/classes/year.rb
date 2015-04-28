@@ -1,5 +1,5 @@
 require 'date'
-require_relative '../utils/date-utils'
+require_relative '../date_utils'
 
 module FinnishHolidays
   class Year

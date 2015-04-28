@@ -1,4 +1,4 @@
-require_relative 'classes/calendar'
+require_relative 'finnish-holidays/classes/calendar'
 
 module FinnishHolidays
   # Lists the next holidays relative to today's date
