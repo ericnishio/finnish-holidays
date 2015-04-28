@@ -1,7 +1,7 @@
 finnish-holidays
 ================
 
-A tool for displaying Finnish national holidays.
+A CLI and utility library for listing Finnish national holidays.
 
 ## Installation
 

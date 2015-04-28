@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Eric Nishio"]
   spec.email         = ["eric@self-learner.com"]
 
-  spec.summary       = %q{A tool for displaying Finnish national holidays.}
-  spec.description   = %q{A CLI and library for displaying Finnish national holidays.}
+  spec.summary       = %q{A CLI and utility library for listing Finnish national holidays.}
+  spec.description   = %q{Lists Finnish national holidays.}
   spec.homepage      = "https://github.com/ericnishio/finnish-holidays"
   spec.license       = "MIT"
 
