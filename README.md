@@ -1,6 +1,8 @@
 finnish-holidays
 ================
 
+[![Build Status](https://travis-ci.org/ericnishio/finnish-holidays.svg?branch=master)](https://travis-ci.org/ericnishio/finnish-holidays)
+
 A CLI and utility library for listing Finnish national holidays.
 
 ## Installation
