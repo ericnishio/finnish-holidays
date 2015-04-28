@@ -1,6 +1,7 @@
 require 'date'
 require 'optparse'
 require_relative 'date_utils'
+require_relative 'translate'
 require_relative 'version'
 require_relative '../finnish-holidays'
 
@@ -22,12 +23,12 @@ module FinnishHolidays
 
         opts.on('-h', '--help', 'Show this screen') do
           puts opts
-          exit
+          exit 0
         end
 
         opts.on('-v', '--version', 'Show version') do
           puts FinnishHolidays::VERSION
-          exit
+          exit 0
         end
 
         options[:year] = nil
@@ -39,13 +40,23 @@ module FinnishHolidays
         opts.on('-mMONTH', '--month=MONTH', 'List holidays by month') do |month|
           options[:month] = month.to_i
         end
+
+        options[:language] = nil
+        opts.on('-lLANGUAGE', '--language=LANGUAGE', 'Translate holidays (fi|sv)') do |language|
+          if !['fi', 'sv'].include? language
+            puts 'Language must be fi (Finnish) or sv (Swedish).'
+            exit 1
+          end
+
+          options[:language] = language
+        end
       end
 
       optparse.parse!
 
       if (options[:month].is_a? Integer) && (!options[:year].is_a? Integer)
         puts 'You must also specify a year with --year=YEAR'
-        exit
+        exit 1
       elsif (options[:year].is_a? Integer) && (options[:month].is_a? Integer)
         holidays = FinnishHolidays.month(options[:month], options[:year], options[:include_weekends])
       elsif options[:year].is_a? Integer
@@ -55,9 +66,15 @@ module FinnishHolidays
       end
 
       holidays.each do |holiday|
-        t = Date.new(holiday['year'], holiday['month'], holiday['day'])
-        date = t.strftime('%a, %b %e, %Y')
-        puts "#{date} #{holiday['description']}"
+        d = Date.new(holiday['year'], holiday['month'], holiday['day'])
+        date = d.strftime('%a, %b %e, %Y')
+        description = holiday['description']
+
+        if ['fi', 'sv'].include? options[:language]
+          description = FinnishHolidays::Translate.into(options[:language], holiday['description'])
+        end
+
+        puts "#{date} #{description}"
       end
     end
   end
