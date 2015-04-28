@@ -1,7 +1,7 @@
 require_relative 'spec_helper'
 
 describe DateUtils do
-  it 'should detect Satuday' do
+  it 'should detect Saturday' do
     is_weekend = DateUtils.is_weekend(2015, 4, 25)
     expect(is_weekend).to be(true)
   end
