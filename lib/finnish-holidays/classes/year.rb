@@ -44,7 +44,7 @@ module FinnishHolidays
       add_holiday(FinnishHolidays::DateUtils.good_friday(@year), 'Good Friday')
       add_holiday(FinnishHolidays::DateUtils.easter_sunday(@year), 'Easter Sunday')
       add_holiday(FinnishHolidays::DateUtils.easter_monday(@year), 'Easter Monday')
-      add_holiday(Date.new(@year, 1, 1), 'May Day')
+      add_holiday(Date.new(@year, 5, 1), 'May Day')
       add_holiday(FinnishHolidays::DateUtils.ascension_day(@year), 'Ascension Day')
       add_holiday(FinnishHolidays::DateUtils.pentecost(@year), 'Pentecost')
       add_holiday(FinnishHolidays::DateUtils.midsummer_eve(@year), 'Midsummer Eve (unofficial)')
