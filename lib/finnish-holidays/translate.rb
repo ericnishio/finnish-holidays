@@ -34,9 +34,9 @@ module FinnishHolidays
           'fi' => 'Helluntaipäivä',
           'sv' => 'Pingst'
         },
-        'Midsummer Eve (unofficial)' => {
-          'fi' => 'Juhannusaatto (unofficial)',
-          'sv' => 'Midsommarafton (unofficial)'
+        'Midsummer Eve' => {
+          'fi' => 'Juhannusaatto',
+          'sv' => 'Midsommarafton'
         },
         'Midsummer Day' => {
           'fi' => 'Juhannuspäivä',
@@ -50,9 +50,9 @@ module FinnishHolidays
           'fi' => 'Itsenäisyyspäivä',
           'sv' => 'Självständighetsdagen'
         },
-        'Christmas Eve (unofficial)' => {
-          'fi' => 'Jouluaatto (unofficial)',
-          'sv' => 'Julafton (unofficial)'
+        'Christmas Eve' => {
+          'fi' => 'Jouluaatto',
+          'sv' => 'Julafton'
         },
         'Christmas Day' => {
           'fi' => 'Joulupäivä',

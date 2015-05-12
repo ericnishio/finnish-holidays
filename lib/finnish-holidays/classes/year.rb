@@ -47,11 +47,11 @@ module FinnishHolidays
       add_holiday(Date.new(@year, 5, 1), 'May Day')
       add_holiday(FinnishHolidays::DateUtils.ascension_day(@year), 'Ascension Day')
       add_holiday(FinnishHolidays::DateUtils.pentecost(@year), 'Pentecost')
-      add_holiday(FinnishHolidays::DateUtils.midsummer_eve(@year), 'Midsummer Eve (unofficial)')
+      add_holiday(FinnishHolidays::DateUtils.midsummer_eve(@year), 'Midsummer Eve') # unofficial
       add_holiday(FinnishHolidays::DateUtils.midsummer_day(@year), 'Midsummer Day')
       add_holiday(FinnishHolidays::DateUtils.all_saints_day(@year), "All Saints' Day")
       add_holiday(Date.new(@year, 12, 6), 'Independence Day')
-      add_holiday(Date.new(@year, 12, 24), 'Christmas Eve (unofficial)')
+      add_holiday(Date.new(@year, 12, 24), 'Christmas Eve') # unofficial
       add_holiday(Date.new(@year, 12, 25), 'Christmas Day')
       add_holiday(Date.new(@year, 12, 26), "St. Stephen's Day")
     end
